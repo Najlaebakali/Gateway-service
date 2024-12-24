@@ -15,12 +15,14 @@ spec:
       containers:
         - name: gateway-service
           image: labo_gateway_images
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
             - containerPort: 8888
           env:
             - name: DISCOVERY_SERVICE_URL
-              value: http://discovery-service.default.svc.cluster.local:8762/eureka
+              value: http://discovery-service:8762/eureka
+            - name: CONFIG_SERVICE_URL
+              value: http://config-service:9999
           readinessProbe:
             httpGet:
               path: /actuator/health
